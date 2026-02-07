@@ -3,7 +3,7 @@
  */
 import { PublicKey, Keypair, Transaction } from '@solana/web3.js';
 
-export type DEX = 'pumpfun' | 'raydium' | 'jupiter' | 'orca';
+export type DEX = 'pumpfun' | 'raydium' | 'jupiter' | 'orca' | 'meteora';
 
 /** Token metadata */
 export interface TokenInfo {

@@ -6,25 +6,27 @@
 
 ## Overview
 
-TrenchSniper OS provides professional-grade token launching, sniping, and market making tools for the Solana ecosystem - **completely free and open source**.
+TrenchSniper OS provides professional-grade token launching, sniping, and trading tools for the Solana ecosystem - **completely free and open source**.
 
 While paid tools like Proxima charge hundreds per month for access, TrenchSniper OS puts the same capabilities in everyone's hands.
 
 ## Features
 
 ### ✅ Completed
+- **Token Creation**: Launch tokens on PumpFun with metadata upload
+- **PumpFun Trading**: Buy/sell on bonding curves
+- **Raydium Trading**: AMM pool swaps with quote calculation
+- **Meteora DLMM**: Concentrated liquidity pool trading
+- **Smart Router**: Auto-route to best DEX with migration detection
+- **Strategy Configs**: Pre-built aggressive/balanced/conservative strategies
 - **Wallet Management**: HD generation, AES-256 encryption, batch operations
-- **Core Infrastructure**: Multi-wallet coordination, transaction bundling
-- **Snipe Module**: PumpFun bonding curve integration with buy/sell
-- **CLI**: Full command-line interface for sniping operations
 - **Jito Bundles**: MEV protection through Jito bundle builder
 - **Multi-Wallet**: Coordinated sniping across multiple wallets
+- **CLI**: Full command-line interface
 
 ### 📋 Planned
-- Token launch command (PumpFun creation)
 - Web UI dashboard
 - Telegram bot interface
-- Multi-DEX routing (Jupiter, Raydium, Meteora)
 - Portfolio analytics
 
 ## Quick Start
@@ -56,10 +58,7 @@ wallets:
     - "/path/to/wallet1.json"
     - "/path/to/wallet2.json"
 
-defaults:
-  slippageBps: 100      # 1% slippage
-  priorityFee: 5000
-  network: mainnet
+strategy: balanced  # aggressive | balanced | conservative
 ```
 
 ### CLI Usage
@@ -77,20 +76,84 @@ pnpm cli snipe <TOKEN_MINT> --amount 0.1 --jito --tip 10000
 # Exit a position (sell tokens)
 pnpm cli exit <TOKEN_MINT> --percent 100
 
-# Partial exit
-pnpm cli exit <TOKEN_MINT> --percent 50
-
 # Generate new wallets
 pnpm cli wallet --generate 5
+```
 
-# Check wallet balances
-pnpm cli wallet --balance
+## New Features
 
-# Fund snipe wallets from main
-pnpm cli wallet --fund 0.5
+### 🚀 Token Creation on PumpFun
 
-# Collect SOL back to main wallet
-pnpm cli wallet --collect
+```typescript
+import { createToken, TokenCreator } from '@trenchsniper/core';
+
+const result = await createToken(connection, {
+  wallet,
+  metadata: {
+    name: 'My Token',
+    symbol: 'MTK',
+    description: 'A cool token',
+    twitter: '@mytoken',
+    telegram: 't.me/mytoken',
+    website: 'https://mytoken.com',
+  },
+});
+
+console.log('Token created:', result.mint.toString());
+```
+
+### 🔄 Smart Router with Migration Detection
+
+```typescript
+import { SmartRouter, router } from '@trenchsniper/core';
+
+// Auto-detect best DEX
+const bestDex = await router.getBestDex(connection, tokenMint);
+
+// Detect if token migrated from PumpFun to Raydium
+const migration = await router.detectPoolMigration(connection, tokenMint);
+if (migration.migrated) {
+  console.log(`Migrated from ${migration.from} to ${migration.to}`);
+}
+
+// Get best quote across all DEXs
+const quote = await router.getBestQuote(connection, {
+  inputMint: SOL_MINT,
+  outputMint: tokenMint,
+  amount: 1_000_000_000, // 1 SOL in lamports
+  slippageBps: 100,
+});
+```
+
+### 📊 Multi-DEX Trading
+
+```typescript
+import { raydium, meteora } from '@trenchsniper/core';
+
+// Raydium AMM swap
+const rayQuote = await raydium.getQuote(connection, params);
+const rayResult = await raydium.swap(connection, { wallet, quote: rayQuote });
+
+// Meteora DLMM swap
+const metQuote = await meteora.getQuote(connection, params);
+const metResult = await meteora.swap(connection, { wallet, quote: metQuote });
+```
+
+### 📋 Strategy Configs
+
+Pre-built strategies in `packages/cli/src/strategies/`:
+
+| Strategy | Risk | Buy Size | Take Profit | Stop Loss |
+|----------|------|----------|-------------|-----------|
+| Aggressive | High | 0.5 SOL | 2x | 50% |
+| Balanced | Medium | 0.25 SOL | 1.75x | 40% |
+| Conservative | Low | 0.1 SOL | 1.5x | 30% |
+
+```typescript
+import { loadStrategyByName } from '@trenchsniper/cli/strategies';
+
+const strategy = loadStrategyByName('aggressive');
+console.log(strategy.autoSell.takeProfitMultiplier); // 2.0
 ```
 
 ## Architecture
@@ -98,89 +161,63 @@ pnpm cli wallet --collect
 ```
 TrenchSniper-OS/
 ├── packages/
-│   ├── core/           # Wallet, encryption, PumpFun integration
+│   ├── core/           # Core trading modules
 │   │   └── src/
 │   │       ├── wallet/    # Wallet generation & management
 │   │       ├── trading/   # Trading types
-│   │       └── snipe/     # PumpFun bonding curve client
+│   │       └── snipe/
+│   │           ├── pumpfun.ts  # PumpFun bonding curve
+│   │           ├── create.ts   # Token creation
+│   │           ├── raydium.ts  # Raydium AMM
+│   │           ├── meteora.ts  # Meteora DLMM
+│   │           └── router.ts   # Smart router
 │   │
 │   ├── snipe/          # Sniping engine
 │   │   └── src/
 │   │       ├── sniper.ts  # TokenSniper class
 │   │       └── jito.ts    # Jito bundle builder
 │   │
-│   ├── cli/            # Command line interface
-│   │   └── src/
-│   │       ├── commands/  # snipe, exit, launch, wallet
-│   │       └── config.ts  # YAML config loader
-│   │
-│   └── ui/             # Web interface (coming soon)
+│   └── cli/            # Command line interface
+│       └── src/
+│           ├── commands/     # CLI commands
+│           └── strategies/   # Strategy configs
 │
-├── trench.example.yaml # Example configuration
-└── docs/               # Documentation
+└── trench.example.yaml # Example configuration
 ```
 
 ## Packages
 
 ### @trenchsniper/core
 
-Core functionality including:
-- Wallet generation (HD derivation, batch creation)
-- PumpFun bonding curve integration
-- Buy/sell on bonding curve
-- Migration detection
+Core trading functionality:
 
 ```typescript
-import { PumpFunClient, generateWallets } from '@trenchsniper/core';
-
-const client = new PumpFunClient(connection);
-
-// Check if token is on PumpFun
-const info = await client.getTokenInfo(tokenMint);
-
-// Buy tokens
-const result = await client.buy(wallet, tokenMint, solAmount, slippageBps);
-
-// Sell tokens
-const result = await client.sell(wallet, tokenMint, tokenAmount, slippageBps);
+import { 
+  // PumpFun
+  PumpFunClient,
+  buy, sell, isOnPumpFun,
+  
+  // Token Creation
+  TokenCreator, createToken, uploadMetadata,
+  
+  // Raydium
+  raydium,
+  
+  // Meteora
+  meteora,
+  
+  // Smart Router
+  router, SmartRouter,
+} from '@trenchsniper/core';
 ```
 
 ### @trenchsniper/snipe
 
-High-level sniping engine:
-- Multi-wallet coordination
-- Jito bundle support
-- Position tracking
-
-```typescript
-import { TokenSniper, JitoBundleBuilder } from '@trenchsniper/snipe';
-
-const sniper = new TokenSniper({
-  connection,
-  wallets: [wallet1, wallet2, wallet3],
-  useJito: true,
-});
-
-// Snipe with all wallets
-const results = await sniper.snipe({
-  tokenMint,
-  solAmountPerWallet: 0.1,
-});
-
-// Exit position
-const exitResults = await sniper.exit({
-  tokenMint,
-  sellPercent: 100,
-});
-```
+High-level sniping engine with multi-wallet coordination and Jito support.
 
 ### @trenchsniper/cli
 
-Full CLI with commands:
-- `snipe` - Buy tokens on PumpFun
-- `exit` - Sell token positions
-- `launch` - Create new tokens (coming soon)
-- `wallet` - Wallet management
+Full CLI with strategy support.
 
 ## Contributing
 
