@@ -1,11 +1,10 @@
 /**
  * Alert Manager for Telegram Bot
- * Handles real-time notifications
  */
-import { Bot } from 'grammy';
+import { Telegraf } from 'telegraf';
 import { getConfig } from './config.js';
 
-export type AlertType = 
+export type AlertType =
   | 'price_movement'
   | 'migration_detected'
   | 'new_token'
@@ -24,10 +23,10 @@ export interface AlertData {
 }
 
 export class AlertManager {
-  private bot: Bot;
+  private bot: Telegraf<any>;
   private subscribers: Map<number, AlertType[]>;
 
-  constructor(bot: Bot) {
+  constructor(bot: Telegraf<any>) {
     this.bot = bot;
     this.subscribers = new Map();
     this.loadSubscribers();
@@ -36,10 +35,9 @@ export class AlertManager {
   private loadSubscribers() {
     const config = getConfig();
     config.adminIds.forEach(id => {
-      this.subscribers.set(id, 
-        config.features.alerts 
-          ? ['price_movement', 'migration_detected', 'new_token', 'tx_confirmed']
-          : []
+      this.subscribers.set(id, config.features.alerts
+        ? ['price_movement', 'migration_detected', 'new_token', 'tx_confirmed']
+        : []
       );
     });
   }
@@ -65,7 +63,7 @@ export class AlertManager {
 
     const message = this.formatAlert(alert);
     try {
-      await this.bot.api.sendMessage(userId, message, { parse_mode: 'HTML' });
+      await this.bot.telegram.sendMessage(userId, message, { parse_mode: 'HTML' });
       return true;
     } catch (error) {
       console.error(`Failed to send alert to ${userId}:`, error);
@@ -95,24 +93,16 @@ export class AlertManager {
     };
 
     let message = `${emoji[alert.type]} <b>${this.getAlertTitle(alert.type)}</b>\n\n`;
-
-    if (alert.token) {
-      message += `🪙 Token: <code>${alert.token}</code>\n`;
-    }
-    if (alert.tokenSymbol) {
-      message += `🏷️ Symbol: $${alert.tokenSymbol}\n`;
-    }
-    if (alert.amount) {
-      message += `💵 Amount: ${alert.amount}\n`;
-    }
+    if (alert.token) message += `🪙 Token: <code>${alert.token}</code>\n`;
+    if (alert.tokenSymbol) message += `🏷️ Symbol: $${alert.tokenSymbol}\n`;
+    if (alert.amount) message += `💵 Amount: ${alert.amount}\n`;
     if (alert.priceChange !== undefined) {
       const sign = alert.priceChange >= 0 ? '+' : '';
       message += `📊 Price Change: ${sign}${alert.priceChange.toFixed(2)}%\n`;
     }
     if (alert.txHash) {
-      message += `🔗 TX: <a href="https://solscan.io/tx/${alert.txHash}">View on Solscan</a>\n`;
+      message += `🔗 TX: <a href="https://solscan.io/tx/${alert.txHash}">View</a>\n`;
     }
-
     message += `\n⏰ ${new Date(alert.timestamp).toLocaleString()}`;
     return message;
   }
