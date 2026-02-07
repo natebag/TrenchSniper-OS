@@ -1,0 +1,47 @@
+{
+  "name": "trenchsniper-os",
+  "version": "0.1.0",
+  "description": "Open-source alternative to Proxima.tools for Solana token launching and sniping",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build --filter=!@trenchsniper/docs && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@types/node": "^20.0.0",
+    "turbo": "^2.0.0",
+    "typescript": "^5.4.0"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/natebag/TrenchSniper-OS.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "solana",
+    "token",
+    "launch",
+    "snipe",
+    "pumpfun",
+    "trading",
+    "bot",
+    "open-source"
+  ]
+}
