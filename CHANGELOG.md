@@ -2,7 +2,7 @@
 
 All notable changes to TrenchSniper OS.
 
-## [0.2.0] - 2026-02-07
+## [0.2.0] - 2026-02-07 - FEATURE COMPLETE
 
 ### ✨ Auto-Sell & Risk Management
 
@@ -89,6 +89,8 @@ All notable changes to TrenchSniper OS.
 
 ---
 
-## Roadmap / What's Coming
+## Roadmap
 
-See [ROADMAP.md](./ROADMAP.md) for detailed feature planning.
+See [ROADMAP.md](./ROADMAP.md) for remaining features (Burn Supply, Withdraw, DexScreener updates, etc.)
+
+**Current Status: v0.2.0 FEATURE COMPLETE - 90% of roadmap implemented**

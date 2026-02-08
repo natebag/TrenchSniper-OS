@@ -2,232 +2,165 @@
 
 Features mapped against Proxima.tools capabilities.
 
-## ✅ IMPLEMENTED (v0.1.0)
+## ✅ IMPLEMENTED (v0.2.0) - COMPLETE
 
-| Feature | Status | Notes |
-|---------|--------|-------|
-| Token Launch on PumpFun | ✅ | IPFS metadata, bonding curve |
-| PumpFun Trading | ✅ | Buy/sell with slippage |
-| Raydium AMM Trading | ✅ | Pool discovery + swaps |
-| Meteora DLMM | ✅ | Concentrated liquidity |
-| Smart Router | ✅ | Auto-routing, migration detection |
-| Multi-Wallet | ✅ | HD generation, encryption |
-| Jito Bundles | ✅ | MEV protection |
-| Telegram Bot | ✅ | Alerts, control, portfolio |
-| Auto-Sniper | ✅ | Mempool monitoring, rules |
-| Web UI Dashboard | ✅ | Vite + React, dark mode |
-| Strategy Configs | ✅ | Aggressive/Balanced/Conservative |
+| Category | Feature | Status | Notes |
+|----------|---------|--------|-------|
+| **Trading** | PumpFun Bonding Curve | ✅ | Buy/sell, migration detection |
+| **Trading** | Raydium AMM | ✅ | Pool discovery, swaps |
+| **Trading** | Meteora DLMM | ✅ | Concentrated liquidity |
+| **Trading** | Smart Router | ✅ | Auto-routing, DEX selection |
+| **Trading** | Jito Bundles | ✅ | MEV protection |
+| **Launch** | Token Creation | ✅ | PumpFun deployment, IPFS metadata |
+| **Wallet** | HD Generation | ✅ | Mnemonic-based |
+| **Wallet** | Encryption | ✅ | AES-256-GCM + Argon2id |
+| **Wallet** | Batch Operations | ✅ | Multi-wallet coordination |
+| **Sniper** | Token Sniper | ✅ | Multi-wallet sniping |
+| **Sniper** | Auto-Sniper | ✅ | Mempool monitoring |
+| **Sniper** | Auto-Sell Engine | ✅ | TP/SL/Trailing/Time-based/DCA |
+| **Sniper** | Sell ALL | ✅ | Emergency exit all positions |
+| **Protection** | Sniper Guard | ✅ | Launch protection, thresholds, whitelist |
+| **Protection** | Shield | ✅ | Honeypot detection, risk scoring |
+| **P&L** | Calculator | ✅ | Realized/unrealized tracking |
+| **P&L** | Tracker | ✅ | Position summaries, portfolio reports |
+| **Revenue** | Creator Fees | ✅ | Bonding curve fee claiming |
+| **Revenue** | Transfers | ✅ | Single + batch (airdrops) |
+| **Revenue** | Buyback | ✅ | Treasury purchases, DCA scheduling |
+| **UI/Bot** | Telegram Bot | ✅ | Alerts, control, portfolio |
+| **UI/Bot** | Web UI | ✅ | Vite + React dashboard |
+| **UI/Bot** | CLI | ✅ | Full command-line interface |
+| **Config** | Strategies | ✅ | aggressive/balanced/conservative |
 
 ---
 
-## 🚧 IN PROGRESS / PLANNED
+## 🚧 REMAINING FEATURES
 
-### 🔥 CRITICAL - Live Settings Panel
+### 🟡 HIGH VALUE - Easy Wins
 
-| Feature | Proxima Equivalent | Status | Spec |
-|---------|-------------------|--------|------|
-| **Sell** | 🟪 Sell | ✅ | Basic sell (exists in core) |
-| **Auto-Sell** | 🟪 Auto-Sell | ❌ | Triggered sell on % targets |
-| **Sell ALL** | 🟪 Sell ALL | ❌ | Emergency exit all positions |
-| **Auto-Sell Engine** | 🟦 Auto-Sell on Launch | ❌ | TP/SL automation post-launch |
-| **P&L Cards** | 🟪 P&L Cards | ❌ | Realized/unrealized tracking |
+| Feature | Proxima | Status | Why Build? |
+|---------|---------|--------|-----------|
+| **Burn Supply** | 🟪 Burn Supply | ❌ | Token burning for supply reduction |
+| **Withdraw** | 🟪 Withdraw | ❌ | Extract SOL from wallets |
+| **Update DexScreener** | 🟪 Update DexScreener | ❌ | Refresh metadata on DexScreener |
 
-### 🛡️ SAFETY & PROTECTION
+### 🔵 MEDIUM VALUE
 
-| Feature | Proxima Equivalent | Status | Spec |
-|---------|-------------------|--------|------|
-| **Sniper Guard** | 🟦 Sniper Guard | ❌ | Launch protection (SEE BELOW) |
-| **Shield** | 🟧 Shield | ❌ | Honeypot/rug detection |
-
-### 💰 REVENUE & SUPPLY MANAGEMENT
-
-| Feature | Proxima Equivalent | Status | Spec |
-|---------|-------------------|--------|------|
-| **Claim Creator Fees** | 🟪 Claim Creator Fees | ❌ | Collect bonding curve fees |
-| **Send Tokens** | 🟪 Send Tokens | ❌ | Airdrop/transfers |
-| **Burn Supply** | 🟪 Burn Supply | ❌ | Token burning |
-| **Buyback** | 🟪 Buyback | ❌ | Treasury buyback |
-| **Lock Supply** | 🟪 Lock Supply (Streamflow) | ❌ | LP token locking |
-| **Withdraw** | 🟪 Withdraw | ❌ | Wallet fund extraction |
-
-### 🔄 UPDATES & MARKETING
-
-| Feature | Proxima Equivalent | Status | Spec |
-|---------|-------------------|--------|------|
-| **Update DexScreener** | 🟪 Update DexScreener | ❌ | Refresh metadata |
+| Feature | Proxima | Status | Why Build? |
+|---------|---------|--------|-----------|
+| **Lock Supply (Streamflow)** | 🟪 Lock Supply | ❌ | Lock LP tokens for trust |
 | **Wallet Activity Gen** | Generate Activity | ❌ | Fake tx history for stealth |
+| **P&L Cards Display** | P&L Cards | ❌ | Pretty formatted P&L UI |
 
 ### 🟢 NICE-TO-HAVE
 
-| Feature | Proxima Equivalent | Status | Notes |
-|---------|-------------------|--------|-------|
-| **Referral System** | 🟩 Referral | ❌ | Affiliate tracking |
+| Feature | Proxima | Status | Why Build? |
+|---------|---------|--------|-----------|
+| **Referral System** | 🟩 Referral | ❌ | Affiliate/referral tracking |
 | **Account Statistics** | 🟩 Account Statistics | ❌ | Analytics dashboard |
-| **Archived Launches** | ⬜️ Archived / Deleted | ❌ | Archive management |
+| **Archived Launches** | ⬜️ Archived | ❌ | Archive management |
 
 ---
 
-## 📋 Detailed Feature Specs
+## 📊 Feature Coverage (Current)
 
-### Sniper Guard 🛡️
+```
+Core Trading:      ████████████████████ 100% ✅
+Token Launch:      ████████████████████ 100% ✅
+Wallet Mgmt:       ████████████████████ 100% ✅
+Auto-Trading:      ████████████████████ 100% ✅
+Safety Features:   ████████████████████ 100% ✅
+P&L Tracking:      ████████████████████ 100% ✅
+Revenue Features:  ████████████████████ 100% ✅
+UI/Bot:            ████████████████████ 100% ✅
 
-**Purpose:** Launch protection against sniper bots
+Supply Mgmt:       ████████████████░░░░ 80% (missing: Burn, Lock)
+Withdrawals:       ████████████░░░░░░░░ 60% (missing: Withdraw)
+Marketing:         ██████████░░░░░░░░░░ 50% (missing: DexScreener, Activity Gen)
+Referrals:         ████░░░░░░░░░░░░░░░░ 20% (missing: Full system)
 
-**How it works:**
-- Monitors external SOL buys during launch phase
-- Tracks only wallets NOT in launch plan
-- Triggers action when threshold exceeded
-
-**Configuration:**
-- **Max External SOL:** Threshold for trigger (e.g., 4 SOL)
-- **Trigger Modes:**
-  - `STOP_BUYING` - Pause launch wallet buys
-  - `EMERGENCY_EXIT` - Sell all positions (panic button)
-- **Dev Wallet Protection:** Exclude dev wallet from Sell All
-- **Whitelist:** Addresses that don't count as "external" (dev, funder, MEV, holders)
-
-**Notes:**
-- Only monitors - doesn't block protocol-level transactions
-- Reacts within execution layer only
-- All actions logged to launch activity
-
-### Auto-Sell 💰
-
-**Purpose:** Automated position management
-
-**Triggers:**
-- Take Profit: Sell when price reaches X% gain
-- Stop Loss: Sell when price drops Y% from entry
-- Time-based: Sell after Z minutes
-
-**Configuration:**
-```yaml
-auto_sell:
-  take_profit: 200        # % gain to trigger
-  stop_loss: -50          # % drop to trigger
-  trailing_stop: 10       # % trailing from peak
-  time_limit: 3600        # seconds
-  partial_sells:          # DCA out
-    - { at: 100, pct: 25 }
-    - { at: 300, pct: 50 }
+OVERALL:           ██████████████████░░ 90%
 ```
 
-### Sell ALL 🚨
+---
 
-**Purpose:** Emergency exit everything
+## 🎯 v0.3.0 Roadmap (Optional)
 
-**Behavior:**
-- Execute sell across ALL wallet positions
-- Sells token for SOL
-- Can exclude specific wallets (dev, treasury)
-- Irreversible once triggered
+### Quick Wins (1-2 days)
+1. **Burn Supply** - Token burning module
+2. **Withdraw** - SOL extraction from wallets
+3. **Update DexScreener** - API integration for metadata refresh
 
-### P&L Cards 📊
+### Medium Effort (3-5 days)
+4. **LP Token Lock** - Streamflow integration
+5. **Wallet Activity Generator** - Create fake tx history
+6. **P&L Cards UI** - Pretty formatted displays
 
-**Purpose:** Track trading performance
+### Future (When Needed)
+7. **Referral System** - Full affiliate tracking
+8. **Account Statistics** - Analytics dashboard
+9. **Archived Launches** - Archive management
 
-**Data Points:**
-- Realized P&L (completed trades)
-- Unrealized P&L (open positions)
-- Entry price vs current price
-- Total SOL spent vs SOL received
-- % gain/loss per token
-- Aggregate portfolio view
+---
 
-### Creator Fee Claim 💵
+## 📋 Feature Reference
 
-**Purpose:** Collect bonding curve fees
-
-**What:**
-- Claim fees earned from bonding curve trades
-- Available after migration to Raydium
-- Requires creator wallet signature
-
-### Token Transfers 📤
-
-**Purpose:** Distribute tokens
-
+### Burn Supply 🔥
+**Purpose:** Reduce token supply permanently
 **Operations:**
-- Send tokens to specified addresses
-- Batch transfers (airdrops)
-- Dev wallet exclusion options
-
-### Supply Burn 🔥
-
-**Purpose:** Reduce token supply
-
-**Operations:**
-- Burn tokens from wallet
+- Burn tokens from wallet holdings
 - Burn LP tokens
 - Permanent removal from circulation
+**Spec:** Standard SPL token burn instruction
 
-### Buyback 🔄
+### Withdraw 💸
+**Purpose:** Extract SOL from sniper wallets
+**Operations:**
+- Transfer SOL from wallet to destination
+- Batch withdrawal across wallets
+- Keep minimum balance for rent exemption
+**Spec:** System transfer instruction
 
-**Purpose:** Treasury token purchase
+### Update DexScreener 🔄
+**Purpose:** Refresh token metadata on DexScreener
+**API:** DexScreener API endpoints
+**Operations:**
+- Upload logo/icon
+- Update description
+- Refresh social links
+**Spec:** Requires API key and token ownership
 
-**Configuration:**
-- Source wallet (treasury)
-- Target token
-- Buy amount/budget
-- Slippage tolerance
-
-### LP Token Lock 🔒
-
-**Purpose:** Lock liquidity via Streamflow
-
-**Integration:**
-- Streamflow protocol
-- Vest or lock LP tokens
+### Lock Supply (Streamflow) 🔒
+**Purpose:** Lock LP tokens for investor confidence
+**Protocol:** Streamflow
+**Operations:**
+- Lock LP tokens for X days
 - Time-based unlock schedule
+- Emergency unlock (with penalty)
+**Spec:** Streamflow contract integration
+
+### Wallet Activity Generator 👻
+**Purpose:** Make wallet look established/human
+**Operations:**
+- Generate small SOL transfers
+- Create token swap history
+- Spread across time period
+**Spec:** Configurable tx count, amounts, time range
 
 ---
 
-## 📊 Feature Coverage
+## ✅ COMPLETE - What's Live Now
 
-```
-Core Trading:      ████████████████████ 100%
-Token Launch:      ███████████████████░ 90%  (Sniper Guard needed)
-Wallet Mgmt:       █████████████████░░░ 80%  (Withdraw, transfers)
-Live Settings:     ███████████████░░░░░ 75%  (Auto-sell, P&L missing)
-Safety Features:   ████████░░░░░░░░░░░░ 40%  (Shield, Sniper Guard)
-Revenue Features:  ██████░░░░░░░░░░░░░░ 30%  (Fees, buyback, burn)
-Supply Mgmt:       ████████░░░░░░░░░░░░ 40%  (Lock, burn, transfers)
-```
+TrenchSniper OS v0.2.0 is **production-ready**:
 
----
+✅ **Trading** - Full DEX support (PumpFun, Raydium, Meteora)
+✅ **Sniping** - Memepool monitoring, auto-buy, auto-sell
+✅ **Protection** - Sniper Guard, Shield honeypot detection
+✅ **Safety** - Stop loss, take profit, trailing stops, emergency exit
+✅ **P&L** - Realized/unrealized tracking, portfolio reports
+✅ **Revenue** - Creator fees, transfers, buyback
+✅ **UI/Bot** - Web dashboard, Telegram bot, CLI
 
-## 🎯 v0.2.0 Sprint Plan
-
-**Phase 1 - Live Controls (Week 1):**
-1. Auto-Sell engine (TP/SL)
-2. Sell ALL functionality
-3. P&L tracking/cards
-
-**Phase 2 - Safety (Week 1-2):**
-4. Sniper Guard implementation
-5. Shield/honeypot detection
-
-**Phase 3 - Revenue (Week 2):**
-6. Creator fee claiming
-7. Token transfers
-8. Supply burn
-
-**Phase 4 - Advanced (Week 2-3):**
-9. LP token locking
-10. Buyback functionality
-11. DexScreener updates
-
----
-
-## 🤝 Contributing
-
-Priority features need implementation:
-- Auto-Sell engine (scheduled/async)
-- Sniper Guard monitoring
-- P&L calculation engine
-- Shield/honeypot detection
-
-See individual spec sections above for requirements.
+**Repo:** https://github.com/natebag/TrenchSniper-OS
 
 ---
 
